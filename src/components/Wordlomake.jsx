@@ -83,7 +83,7 @@ function Wordlomake(){
 
             <FormControl fullWidth sx ={{ p:1, m:1 } }>
                 <FormLabel id='difficulty'>Difficulty</FormLabel>
-                <RadioGroup row name='difficulty'
+                <RadioGroup row name='difficulty' 
                 value={word.difficulty || 'easy'} onChange={change}>
                         <FormControlLabel value='easy' control={<Radio />} label='Easy' />
                         <FormControlLabel value='medium' control={<Radio />} label='Medium' />

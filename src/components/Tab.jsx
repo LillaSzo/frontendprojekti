@@ -8,13 +8,15 @@ import Tab from '@mui/material/Tab';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 
 import Decklomake from './Decklomake';
 import Decklista from './Decklista';
 import Wordlomake from './Wordlomake';
+import Charts from './Charts';
 
 
-function TabMUI({ decks, languages }) {
+function TabMUI({ decks, languages, words }) {
 
   const [value, setValue] = useState(0);
 
@@ -30,11 +32,13 @@ function TabMUI({ decks, languages }) {
           <Tab label='Create new deck' icon={<NoteAddOutlinedIcon />} />
           <Tab label= 'Your decks' icon={<LoyaltyIcon />} />
           <Tab label= 'Add words' icon={<AddOutlinedIcon />} />
+          <Tab label= 'Statistics' icon={<StackedBarChartOutlinedIcon />} />
         </Tabs>
       </AppBar>
       {value === 0 && <Decklomake languages={languages}/>}
       {value === 1 && <Decklista decks={decks}/>}
       {value === 2 && <Wordlomake />}
+      {value === 3 && <Charts  decks={decks} words={words}/>}
     </Box>
   );
 }

@@ -15,7 +15,7 @@ const decks = [
     target_language: 'Finnish',
     translation_language: 'English',
     picture: 'pictures/purplecard.png',
-    wordcount: 2
+    wordcount: 7
   }
 ] 
 
@@ -41,13 +41,58 @@ const words = [
   },
 
   {
-    word_id: 3,
+    word_id: 4,
+    deck_id: 2,
+    target_word: 'kehys',
+    translation: 'framework',
+    sentence: 'Spring-kehystä on käytetty backend-sovelluksen rakentamiseen.',
+    difficulty: 'medium',
+    added: '19-03-2026'
+  },
+  {
+    word_id: 5,
     deck_id: 2,
     target_word: 'nuolinotaatio',
     translation: 'arrow notation',
     sentence: 'Funktiota määritellään nuolinotaatiolla.',
     difficulty: 'medium',
-    added: '19-03-2026'
+    added: '25-03-2026'
+  },
+  {
+    word_id: 6,
+    deck_id: 2,
+    target_word: 'perintä',
+    translation: 'inheritance',
+    sentence: 'Kissa-luokka perii ominaisuutensa Eläin-luokalta.',
+    difficulty: 'medium',
+    added: '16-01-2026'
+  },
+  {
+    word_id: 7,
+    deck_id: 2,
+    target_word: 'rajapinta',
+    translation: 'interface',
+    sentence: 'Rajapinta määrittelee metodit, mutta ei niiden toteutusta.',
+    difficulty: 'medium',
+    added: '24-02-2026'
+  },
+  {
+    word_id: 8,
+    deck_id: 2,
+    target_word: 'riippuvuus',
+    translation: 'dependency',
+    sentence: 'Kontrolleri saa tietokantayhteyden riippuvuuden kautta.',
+    difficulty: 'hard',
+    added: '05-01-2026'
+  },
+  {
+    word_id: 9,
+    deck_id: 2,
+    target_word: 'salaus',
+    translation: 'encryption',
+    sentence: 'Käyttäjän salasana tallennetaan tietokantaan salattuna.',
+    difficulty: 'easy',
+    added: '20-04-2026'
   }
 ];
 
@@ -74,7 +119,7 @@ function App() {
 
   return (
     <>
-    <Tab decks={decks} languages={languages}/>
+    <Tab decks={decks} languages={languages} words ={words}/>
     </>
   )
 }
