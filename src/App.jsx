@@ -1,5 +1,10 @@
 import Tab from './components/Tab';
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+
+import '@fontsource/righteous'
+
 const decks = [
   {
     deck_id: 1,
@@ -115,11 +120,29 @@ const languages = [
   }
   ];
 
+  const theme = createTheme({
+
+  palette: {
+    primary: { main: "#AEC8A4", contrastText: "#3B3B1A"},
+    secondary: { main: "#3B3B1A", contrastText:  "#E8C999"},
+    text: { primary: "#3B3B1A", secondary: "#8A784E"},
+    background: {default: "#E7EFC7"},
+  },
+
+  typography: {
+    fontFamily: '"Righteous", sans-serif'
+  },
+
+  });
+
 function App() {
 
   return (
     <>
-    <Tab decks={decks} languages={languages} words ={words}/>
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Tab decks={decks} languages={languages} words ={words}/>
+      </ThemeProvider>
     </>
   )
 }

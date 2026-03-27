@@ -65,7 +65,7 @@ function Decklomake({languages}){
     };
 
     return (
-    <Paper sx={{ p: 1, m: 2 }}>
+    <Paper sx={{ p: 1, m: 2, }}>
 
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
@@ -91,7 +91,7 @@ function Decklomake({languages}){
              </TextField>          
 
             <Typography display='inline'>Add picture</Typography>
-            <Button component='label' startIcon={<AttachFileOutlinedIcon />}>
+            <Button component='label' color='secondary' startIcon={<AttachFileOutlinedIcon />}>
             <input accept='image/*' name='picture' type='file'
             onChange={(e) => changePicture(e)} hidden />
             </Button>
