@@ -21,15 +21,15 @@ function Decklomake({languages}){
     });
 
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     const change = (e) => {
     setValues({
         ...deck,
         [e.target.name]: e.target.value
         });
-
-    setMessage('')
-
+    setError('');
+    setMessage('');
     };
 
     const changePicture = (e) => {
@@ -47,21 +47,30 @@ function Decklomake({languages}){
         translation_language: '',
         picture: ''
         });
+    
+    setError('');
     };
 
     const addDeck = () => {
+        const nameErr = getError(deck.name);
+        if (nameErr) {
+        setError(nameErr);
+        return;
+        }
 
-        if(deck.name === ''){
-        setMessage('Name can not be empty!')
-
-        }else{setMessage('Deck added!')
         setValues({
             name: '',
             target_language: '',
             translation_language: '',
             picture: ''
     });
-    }
+    setMessage('Deck Added!');
+    };
+
+    const getError = (name) => {
+    if (!name) return 'Name can not be empty';
+    if (name.length < 2 || name.length > 25) return 'Must be between 2-25 characters';
+    return '';
     };
 
     return (
@@ -70,7 +79,7 @@ function Decklomake({languages}){
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
             <TextField label="Name" variant="outlined" name="name"
-            value={deck.name} onChange={(e) => change(e)} required fullWidth autoFocus />
+            value={deck.name} onChange={(e) => change(e)} required fullWidth autoFocus error={!!error} helperText={error}/>
 
             <TextField select label="Target language" name="target_language" 
             value={deck.target_language || 1} onChange={(e) => change(e)} sx={{ width: '50%' }}>
@@ -101,8 +110,7 @@ function Decklomake({languages}){
         <Button onClick={() => clearFields()} variant='contained' color='secondary' startIcon={<ClearIcon />}>Clear</Button>
         </Box>
     </Box>
-
-        <Typography sx={{ marginTop: 3}}>{message}</Typography>
+    <Typography color='success.main'>{message}</Typography>
     </Paper>
     );
 }

@@ -121,11 +121,12 @@ const languages = [
   ];
 
   const theme = createTheme({
-
   palette: {
     primary: { main: "#AEC8A4", contrastText: "#3B3B1A"},
-    secondary: { main: "#3B3B1A", contrastText:  "#E8C999"},
-    text: { primary: "#3B3B1A", secondary: "#8A784E"},
+    secondary: { main: "#3B3B1A", contrastText:  "#AEC8A4"},
+    error: {main: '#540863'},
+    success: {main: '#92487A'},
+    text: { primary: "#3B3B1A", secondary: "#8A784E", light: '#E7EFC7'},
     background: {default: "#E7EFC7"},
   },
 
@@ -133,6 +134,32 @@ const languages = [
     fontFamily: '"Righteous", sans-serif'
   },
 
+  components: {
+
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#3B3B1A',
+          height: '3px',
+      },
+    },
+  },
+  
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          '&.Mui-selected' : {
+            color: '#8A784E',
+          },
+          '&:hover':{
+            color: '#8A784E',
+          },
+        },
+      },
+    },
+
+    }
   });
 
 function App() {

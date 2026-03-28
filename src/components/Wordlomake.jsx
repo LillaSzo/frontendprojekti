@@ -30,6 +30,9 @@ function Wordlomake(){
     });
 
     const [message, setMessage] = useState('');
+    const [errors, setErrors] = useState({ 
+    target_word: '', 
+    translation: '' });
 
     const change = (e) => {
     setValues({
@@ -50,14 +53,21 @@ function Wordlomake(){
         difficulty: '',
         added: new Date()
         });
+    setErrors('');
+    setMessage('');
     };
 
     const addWord = () => {
+        const fieldErr1 = getErrors(word.target_word);
+        const fieldErr2 = getErrors(word.translation);
 
-        if(word.target_word === '' || word.translation === ''){
-        setMessage('Targetword and translation can not be empty!')
+        if (fieldErr1 || fieldErr2) {
+        setErrors({ 
+            target_word: fieldErr1, 
+            translation: fieldErr2 });
+        return;
+        }
 
-        }else{setMessage('Word added!')
         setValues({
             target_word: '',
             translation: '',
@@ -65,18 +75,25 @@ function Wordlomake(){
             difficulty: '',
             added: new Date()
     });
-    }
+    setErrors('');
+    setMessage('Word added!')
     };
+
+    const getErrors=(word) => {
+    if (!word) return 'Field can not be empty'
+    if (word.length < 2 || word.length > 15) return 'Must be between 2-15 characters';
+    return '';
+    }
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
             <TextField label='Target word' variant='outlined' name='target_word' 
-            value={word.target_word} onChange={(e) => change(e)} required sx={{ width: '50%' }} />
+            value={word.target_word} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.target_word} helperText={errors.target_word}/>
 
             <TextField label='Translation' variant='outlined' name='translation' 
-            value={word.translation} onChange={(e) => change(e)} required sx={{ width: '50%' }} />
+            value={word.translation} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.translation} helperText={errors.translation}/>
 
             <TextField label='Sentence' variant='outlined' name='sentence' 
             value={word.sentence} onChange={(e) => change(e)} fullWidth />
@@ -100,7 +117,7 @@ function Wordlomake(){
             <Button onClick={() => clearFields()} variant='contained' color='secondary' startIcon={<ClearIcon />}>Clear</Button>
             </Box>
     </Box>
-        <Typography sx={{ marginTop: 3}}>{message}</Typography>
+        <Typography color='success.main'>{message}</Typography>
     </Paper>
     );
 }

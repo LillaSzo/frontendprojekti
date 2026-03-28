@@ -1,21 +1,26 @@
-import { PieChart } from '@mui/x-charts';
+import { PieChart } from '@mui/x-charts/PieChart';
+
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import { useTheme } from '@mui/material/styles';
+
 
 function Charts({decks, words}){
+    const theme = useTheme();
 
     const data = Object.entries(words.reduce((acc, word) => {
     acc[word.difficulty] = (acc[word.difficulty] || 0) + 1;
     return acc;
     }, {})).map(([difficulty, count])=> ({ label: difficulty, value: count}));
 
-    const showCount = (params) => {
-        return params.value;  
-    }
+    const calculatePercentage = (params) => {
+        const pros = params.value / words.length * 100;
+        return pros.toFixed(0) + '%';
+    };
 
     const countTotalDecks = () => {
         return decks.length;
@@ -25,12 +30,28 @@ function Charts({decks, words}){
         return words.length;
     }
 
+    const colors = {
+        'easy': theme.palette.primary.main,
+        'medium': theme.palette.text.secondary,
+        'hard': theme.palette.secondary.main,
+    };
+
+    const colorData = data.map(difficulty => {
+        return (
+            {
+                value: difficulty.value,
+                label: difficulty.label,
+                color: colors[difficulty.label]
+            }
+        )
+    });
+
     return(
 
      <Grid container spacing={2} justifyContent={'center'} alignItems={'center'} sx={{ p:2 }} >
 
         <Grid size={{xs:6, md:4}}>
-        <Card sx={{ width: 230, height:150, bgcolor: 'primary.main', color: 'secondary.main', boxShadow: 'none'}}>
+        <Card sx={{ width: 230, height:150, bgcolor: 'primary.main', color: 'primary.contrastText', boxShadow: 'none'}}>
             <CardContent>
                 <Typography variant='h6' align='center'>Total Decks</Typography>
                 <Typography variant='h2' align='center'>{countTotalDecks()}</Typography>
@@ -49,16 +70,21 @@ function Charts({decks, words}){
 
         <Grid size={{xs:12, md:6}}>
         <Card sx={{boxShadow: 'none', bgcolor: 'background.default'}}>
-        <CardHeader title={'Word difficulty'} />   
+        <CardHeader title={'Word difficulty'} align='center'/>   
         <PieChart
         series={[
         {
-        arcLabel: showCount, 
-        data
+        arcLabel: calculatePercentage, 
+        data: colorData,
         },
         ]}
         width={350}
         height={250}
+        sx={{
+            '& .MuiPieArcLabel-root': {
+                fill: theme.palette.text.light,
+                },
+            }}
         />
         </Card>
         </Grid>
