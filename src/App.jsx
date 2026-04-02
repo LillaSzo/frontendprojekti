@@ -122,12 +122,12 @@ const languages = [
 
   const theme = createTheme({
   palette: {
-    primary: { main: "#AEC8A4", contrastText: "#3B3B1A"},
-    secondary: { main: "#3B3B1A", contrastText:  "#AEC8A4"},
+    primary: { main: '#AEC8A4', contrastText: '#3B3B1A'},
+    secondary: { main: '#3B3B1A', contrastText:  '#AEC8A4'},
     error: {main: '#540863'},
     success: {main: '#92487A'},
-    text: { primary: "#3B3B1A", secondary: "#8A784E", light: '#E7EFC7'},
-    background: {default: "#E7EFC7"},
+    text: { primary: '#3B3B1A', secondary: '#8A784E', light: '#E7EFC7'},
+    background: {default: '#E7EFC7'},
   },
 
   typography: {
@@ -155,6 +155,35 @@ const languages = [
           '&:hover':{
             color: '#8A784E',
           },
+        },
+      },
+    },
+
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#AEC8A4',
+        },
+      },
+    },
+
+    MuiTableBody: {
+      styleOverrides: {
+        root: {
+          '& .MuiTableRow-root:nth-of-type(even)': {
+            backgroundColor: '#AEC8A4',
+          },
+          '& .MuiTableRow-root:nth-of-type(odd)': {
+            backgroundColor: '#E7EFC7',
+          },
+        },
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid #3B3B1A',
         },
       },
     },

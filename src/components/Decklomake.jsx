@@ -74,14 +74,14 @@ function Decklomake({languages}){
     };
 
     return (
-    <Paper sx={{ p: 1, m: 2, }}>
+    <Paper sx={{ p: 1, m: 2 }}>
 
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
-            <TextField label="Name" variant="outlined" name="name"
+            <TextField label='Name' variant='outlined' name='name'
             value={deck.name} onChange={(e) => change(e)} required fullWidth autoFocus error={!!error} helperText={error}/>
 
-            <TextField select label="Target language" name="target_language" 
+            <TextField select label='Target language' name='target_language' 
             value={deck.target_language || 1} onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
                 <MenuItem key={language.value} value={language.value}>
@@ -90,7 +90,7 @@ function Decklomake({languages}){
             ))}
              </TextField>
 
-            <TextField select label="Translation language" name="translation_language" 
+            <TextField select label='Translation language' name='translation_language' 
             value={deck.translation_language || 2} onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
                 <MenuItem key={language.value} value={language.value}>

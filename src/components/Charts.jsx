@@ -50,7 +50,7 @@ function Charts({decks, words}){
 
      <Grid container spacing={2} justifyContent={'center'} alignItems={'center'} sx={{ p:2 }} >
 
-        <Grid size={{xs:6, md:4}}>
+        <Grid>
         <Card sx={{ width: 230, height:150, bgcolor: 'primary.main', color: 'primary.contrastText', boxShadow: 'none'}}>
             <CardContent>
                 <Typography variant='h6' align='center'>Total Decks</Typography>
@@ -59,7 +59,7 @@ function Charts({decks, words}){
         </Card>
         </Grid>
 
-        <Grid size={{xs:6, md:4}}>
+        <Grid>
         <Card  sx={{ width: 230, height:150, bgcolor: 'secondary.main', color: 'secondary.contrastText', boxShadow: 'none'}} >
             <CardContent>
                 <Typography variant='h6' align='center'>Total Words</Typography>
@@ -68,7 +68,7 @@ function Charts({decks, words}){
         </Card>
         </Grid>
 
-        <Grid size={{xs:12, md:6}}>
+        <Grid>
         <Card sx={{boxShadow: 'none', bgcolor: 'background.default'}}>
         <CardHeader title={'Word difficulty'} align='center'/>   
         <PieChart
