@@ -1,4 +1,5 @@
 import { PieChart } from '@mui/x-charts/PieChart';
+import { BarChart } from '@mui/x-charts/BarChart';
 
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -46,6 +47,17 @@ function Charts({decks, words}){
         )
     });
 
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const dataset = monthNames.map((name, index) => {
+    const count = words.reduce((acc, word) => {
+        const [day, month] = word.added.split('.').map(Number);
+        return acc + (month - 1 === index ? 1 : 0);
+    }, 0);
+    
+    return { month: name, wordsAdded: count };
+    });
+
     return(
 
      <Grid container spacing={2} justifyContent={'center'} alignItems={'center'} sx={{ p:2 }} >
@@ -85,6 +97,27 @@ function Charts({decks, words}){
                 fill: theme.palette.text.light,
                 },
             }}
+        />
+        </Card>
+        </Grid>
+        <Grid>
+        <Card sx={{ bgcolor: 'background.default', color: 'primary.contrastText', boxShadow: 'none'}}>
+        <BarChart
+        dataset={dataset}
+        width={600}
+        height={350}
+        series={[{
+        dataKey: 'wordsAdded',
+        label: 'Words Added',
+        color: theme.palette.text.secondary,
+        }]}        
+        xAxis={[
+            { 
+            dataKey: 'month',
+            type: 'category',
+            }
+        ]}
+        
         />
         </Card>
         </Grid>

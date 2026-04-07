@@ -1,13 +1,13 @@
 function Word({word}){
 
     return(
-        <p>
-        Targetword: {word.target_word}<br/>
-        Translation: {word.translation}<br/>
-        Sentence: {word.sentence}<br/>
-        Difficulty: {word.difficulty}<br/>
-        Added: {word.added}
-        </p>
+        <>
+        <Tpography>Targetword: {word.target_word}</Tpography>
+        <Tpography>Translation: {word.translation}</Tpography>
+        <Tpography>Sentence: {word.sentence}</Tpography>
+        <Tpography>Difficulty: {word.difficulty}</Tpography>
+        <Tpography>Added: {word.added}</Tpography>
+        </>
     );
 }
 

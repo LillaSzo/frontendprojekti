@@ -32,7 +32,7 @@ const words = [
     translation: 'cat',
     sentence: 'Heikki on paras kissa maailmassa.',
     difficulty: 'easy',
-    added: '19-03-2026'
+    added: '19.03.2026'
   },
 
   {
@@ -42,7 +42,7 @@ const words = [
     translation: 'default value',
     sentence: 'Lomakkeen kentään oli asetettu oletusarvo.',
     difficulty: 'medium',
-    added: '19-03-2026'
+    added: '19.03.2026'
   },
 
   {
@@ -52,7 +52,7 @@ const words = [
     translation: 'framework',
     sentence: 'Spring-kehystä on käytetty backend-sovelluksen rakentamiseen.',
     difficulty: 'medium',
-    added: '19-03-2026'
+    added: '19.03.2026'
   },
   {
     word_id: 5,
@@ -61,7 +61,7 @@ const words = [
     translation: 'arrow notation',
     sentence: 'Funktiota määritellään nuolinotaatiolla.',
     difficulty: 'medium',
-    added: '25-03-2026'
+    added: '25.03.2026'
   },
   {
     word_id: 6,
@@ -70,7 +70,7 @@ const words = [
     translation: 'inheritance',
     sentence: 'Kissa-luokka perii ominaisuutensa Eläin-luokalta.',
     difficulty: 'medium',
-    added: '16-01-2026'
+    added: '16.01.2026'
   },
   {
     word_id: 7,
@@ -79,7 +79,7 @@ const words = [
     translation: 'interface',
     sentence: 'Rajapinta määrittelee metodit, mutta ei niiden toteutusta.',
     difficulty: 'medium',
-    added: '24-02-2026'
+    added: '24.02.2026'
   },
   {
     word_id: 8,
@@ -88,7 +88,7 @@ const words = [
     translation: 'dependency',
     sentence: 'Kontrolleri saa tietokantayhteyden riippuvuuden kautta.',
     difficulty: 'hard',
-    added: '05-01-2026'
+    added: '05.01.2026'
   },
   {
     word_id: 9,
@@ -97,7 +97,7 @@ const words = [
     translation: 'encryption',
     sentence: 'Käyttäjän salasana tallennetaan tietokantaan salattuna.',
     difficulty: 'easy',
-    added: '20-04-2026'
+    added: '20.04.2026'
   }
 ];
 
@@ -155,6 +155,46 @@ const languages = [
           '&:hover':{
             color: '#8A784E',
           },
+        },
+      },
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused':{
+            color: '#3B3B1A',
+          },
+        },
+      },
+    },
+
+    MuiOutlinedInput: {
+     styleOverrides: {
+      root: {
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#AEC8A4',
+          borderWidth: '2px',
+          },
+        },
+      },
+    },
+
+     MuiRadio: {
+      styleOverrides: {
+        root: {
+          '&.Mui-checked': {
+          color: '#3B3B1A',
+          },
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FAF9F6',
+          boxShadow: '0px 3px 6px rgba(0,0,0,0.3)',
         },
       },
     },
