@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
+
 import Deck from './Deck';
+import { Typography } from '@mui/material';
 
 function Decklista({decks}){
 
@@ -14,6 +16,7 @@ function Decklista({decks}){
     p: 2,
     minWidth: 300,
     }}>
+    <Typography variant='h4' align='center'>Own Decks</Typography>
     <Grid container spacing={3} sx={{ mt:2 }}>
 
             {

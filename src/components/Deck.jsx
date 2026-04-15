@@ -10,6 +10,8 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
+import { Link } from 'react-router';
+
 function Deck ({deck}){
 
     return(
@@ -19,18 +21,21 @@ function Deck ({deck}){
             :
             <CardMedia sx={{ height: 325 }} component='img' image={'pictures/Yleinen.png'} alt={'No picture'} />
         }
+
     <CardContent sx={{ p:1, }}>
         <Typography variant='h6' align='center'>{deck.name}</Typography>
         <Typography>Target Language: {deck.target_language}</Typography>
         <Typography>Translation language: {deck.translation_language}</Typography>
         <Typography>Wordcount: {deck.wordcount}</Typography>
     </CardContent>
+
     <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-    <IconButton><AddOutlinedIcon/></IconButton>
-    <IconButton><EditOutlinedIcon /></IconButton>
-    <IconButton><LightbulbOutlinedIcon /></IconButton>
+    <IconButton component={Link} to={'/addword/' + deck.deck_id}><AddOutlinedIcon/></IconButton>
+    <IconButton component={Link} to={'/edit/' + deck.deck_id}><EditOutlinedIcon /></IconButton>
+    <IconButton component={Link} to={'/learn/' + deck.deck_id}><LightbulbOutlinedIcon /></IconButton>
     <IconButton><DeleteOutlinedIcon /></IconButton>
     </CardActions>
+
     </Card>
     );
 }

@@ -1,7 +1,17 @@
-import Tab from './components/Tab';
+import MenuMUI from './components/MenuMUI';
+import Decklista from './components/Decklista';
+import Decklomake from './components/Decklomake';
+import Charts from './components/Charts';
+import Wordlista from './components/Wordlista';
+import Wordlomake from './components/Wordlomake';
+import DecklomakeEdit from './components/DecklomakeEdit';
+import Error from './components/Error';
+
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+
+import { BrowserRouter, Routes, Route } from 'react-router';
 
 import '@fontsource/righteous'
 
@@ -103,19 +113,19 @@ const words = [
 
 const languages = [
   {
-    value: '1',
+    value: 'Finnish',
     label: 'Finnish'
   },
   {
-    value: '2',
+    value: 'English',
     label: 'English'
   },
   {
-  value: '3',
+  value: 'Hungarian',
   label: 'Hungarian'
   },
   {
-  value: '4',
+  value: 'Swedish',
   label: 'Swedish'
   }
   ];
@@ -135,29 +145,6 @@ const languages = [
   },
 
   components: {
-
-    MuiTabs: {
-      styleOverrides: {
-        indicator: {
-          backgroundColor: '#3B3B1A',
-          height: '3px',
-      },
-    },
-  },
-  
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          '&.Mui-selected' : {
-            color: '#8A784E',
-          },
-          '&:hover':{
-            color: '#8A784E',
-          },
-        },
-      },
-    },
 
     MuiInputLabel: {
       styleOverrides: {
@@ -237,7 +224,21 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Tab decks={decks} languages={languages} words ={words}/>
+
+          <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<MenuMUI decks={decks} languages={languages} words ={words}/>} >
+              <Route index element={<Decklista decks={decks}/>} />
+              <Route path='/add' element={<Decklomake languages={languages}/>} />
+              <Route path='/addword/:id' element={<Wordlomake decks={decks}/>} />
+              <Route path='/edit/:id' element={<DecklomakeEdit decks={decks} languages = {languages}/>} />
+              <Route path='/learn/:id' element={<Wordlista words={words} decks = {decks}/>} />
+              <Route path='/statistics' element={<Charts decks={decks} words = {words} />} />
+              <Route path='/error' element={<Error />} />
+              <Route path='*' element={<Error error='Page not found' />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   )

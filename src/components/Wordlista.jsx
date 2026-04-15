@@ -8,10 +8,16 @@ import TableRow from '@mui/material/TableRow';
 import { useState } from 'react';
 import { TextField } from '@mui/material';
 
-
+import { useParams } from 'react-router';
 
 
 function Wordlista({words}){
+
+  const { id } = useParams();
+
+  const deckWords = id
+  ? words.filter(word => word.deck_id === Number(id))
+  : words;
 
   const [search, setSearch] = useState('');
 
@@ -19,7 +25,7 @@ function Wordlista({words}){
     setSearch(e.target.value);
   };
 
-  const filterWords = words.filter((word) =>
+  const filterWords = deckWords.filter((word) =>
     word.target_word.toLowerCase().includes(search.toLowerCase())
   );
 

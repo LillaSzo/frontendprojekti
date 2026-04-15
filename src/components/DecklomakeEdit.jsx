@@ -7,16 +7,42 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
-import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
-import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
 
-function Decklomake({languages}){
+import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+
+function DecklomakeEdit({decks, languages}){
+
+    let { id } = useParams();
+
+    id = Number(id);
+    const constDeck = decks.find((deck) => deck.deck_id === id);
+    let selected = decks.find((deck) => deck.deck_id === id);
+
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!selected) {
+        navigate('/error', {
+            replace: true,
+            state: { errormessage: 'Deck not found' }
+        })
+        }
+    }, [selected, navigate]);
+
+    if (!selected) {
+        return null;
+    }
 
     const[deck, setValues] = useState({
-    name: '',
-    target_language: '',
-    translation_language: '',
+    id: id,
+    name: selected.name,
+    target_language: selected.target_language,
+    translation_language: selected.translation_language,
     picture: []
     });
 
@@ -32,12 +58,6 @@ function Decklomake({languages}){
     setMessage('');
     };
 
-    const changePicture = (e) => {
-        setValues({
-        ...deck,
-        picture: e.target.files[0]
-        });
-    };
 
     const clearFields = () => {
         setValues({
@@ -45,28 +65,31 @@ function Decklomake({languages}){
         name: '',
         target_language: '',
         translation_language: '',
-        picture: ''
+        picture: []
         });
     
-    setError('');    
+    setError('');
     setMessage('');
     };
 
-    const addDeck = () => {
-        const nameErr = getError(deck.name);
+    //coming soon....
+    const changeDeck = () => {
+
+    const nameErr = getError(deck.name);
         
         if (nameErr) {
         setError(nameErr);
         return;
         }
 
-        setValues({
+    setValues({
+            id: id,
             name: '',
             target_language: '',
             translation_language: '',
-            picture: ''
+            picture: []
     });
-    setMessage('Deck Added!');
+    setMessage('Coming soon...');
     };
 
     const getError = (name) => {
@@ -77,14 +100,14 @@ function Decklomake({languages}){
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>
-
+    <Typography variant='h6' sx={{ mb:2 }}>Edit: {constDeck.name}</Typography>
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
             <TextField label='Name' variant='outlined' name='name'
             value={deck.name} onChange={(e) => change(e)} required fullWidth autoFocus error={!!error} helperText={error}/>
 
             <TextField select label='Target language' name='target_language' 
-            value={deck.target_language || 'Finnish'} onChange={(e) => change(e)} sx={{ width: '50%' }}>
+            value={deck.target_language} onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
                 <MenuItem key={language.value} value={language.value}>
                 {language.label}
@@ -93,22 +116,16 @@ function Decklomake({languages}){
              </TextField>
 
             <TextField select label='Translation language' name='translation_language' 
-            value={deck.translation_language || 'English'} onChange={(e) => change(e)} sx={{ width: '50%' }}>
+            value={deck.translation_language} onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
                 <MenuItem key={language.value} value={language.value}>
                 {language.label}
                 </MenuItem>
             ))}
              </TextField>          
-
-            <Typography display='inline'>Add picture</Typography>
-            <Button component='label' color='secondary' startIcon={<AttachFileOutlinedIcon />}>
-            <input accept='image/*' name='picture' type='file'
-            onChange={(e) => changePicture(e)} hidden />
-            </Button>
             
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button onClick={() => addDeck()} variant='contained' sx={{ marginRight: 3 }} startIcon={<NoteAddOutlinedIcon />}>Create</Button>
+        <Button onClick={() => changeDeck()} variant='contained' sx={{ marginRight: 3 }} startIcon={<EditOutlinedIcon />}>Edit Deck</Button>
         <Button onClick={() => clearFields()} variant='contained' color='secondary' startIcon={<ClearIcon />}>Clear</Button>
         </Box>
     </Box>
@@ -116,4 +133,4 @@ function Decklomake({languages}){
     </Paper>
     );
 }
-export default Decklomake;
+export default DecklomakeEdit;

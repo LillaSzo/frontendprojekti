@@ -19,7 +19,13 @@ import RadioGroup from '@mui/material/RadioGroup';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
 
-function Wordlomake(){
+import { useParams } from 'react-router';
+
+function Wordlomake({decks}){
+
+    let { id } = useParams();
+    id = Number(id);
+    let deck = decks.find(deck => deck.deck_id === id);
 
     const[word, setValues] = useState({
     target_word: '',
@@ -87,6 +93,7 @@ function Wordlomake(){
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>
+    <Typography variant='h6' sx={{ mb:1 }}>Add words to: {deck.name}</Typography>
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
             <TextField label='Target word' variant='outlined' name='target_word' 
