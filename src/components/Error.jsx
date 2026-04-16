@@ -14,11 +14,10 @@ function Error({ error }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
-                minHeight: '50vh',
                 mt: 5
             }}
         >
-            <Typography>{errormessage}</Typography>
+            <Typography variant='h5'>{errormessage}</Typography>
         </Box>
     );
 }

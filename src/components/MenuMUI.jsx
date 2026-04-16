@@ -15,7 +15,6 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
-import HomeIcon from '@mui/icons-material/Home';
 import { Link, Outlet } from 'react-router';
 
 function MenuMUI() {

@@ -19,18 +19,26 @@ const decks = [
   {
     deck_id: 1,
     name: 'Yleinen',
-    target_language: 'Finnish',
-    translation_language: 'English',
+    target_language_id: 1,
+    translation_language_id: 2,
     picture: 'pictures/redcard.png',
     wordcount: 1
   },
   {
     deck_id: 2,
     name: 'Ohjelmointi',
-    target_language: 'Finnish',
-    translation_language: 'English',
+    target_language_id: 1,
+    translation_language_id: 2,
     picture: 'pictures/purplecard.png',
     wordcount: 7
+  },
+  {    
+    deck_id: 3,
+    name: 'Tyhjä Test',
+    target_language_id: 1,
+    translation_language_id: 2,
+    picture: 'pictures/bluecard.png',
+    wordcount: 0
   }
 ] 
 
@@ -113,20 +121,20 @@ const words = [
 
 const languages = [
   {
-    value: 'Finnish',
-    label: 'Finnish'
+    language_id: 1,
+    language: 'Finnish'
   },
   {
-    value: 'English',
-    label: 'English'
+    language_id: 2,
+    language: 'English'
   },
   {
-  value: 'Hungarian',
-  label: 'Hungarian'
+    language_id: 3,
+    language: 'Hungarian'
   },
   {
-  value: 'Swedish',
-  label: 'Swedish'
+    language_id: 4,
+    language: 'Swedish'
   }
   ];
 
@@ -145,6 +153,42 @@ const languages = [
   },
 
   components: {
+
+  MuiMenu: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+        }),
+      },
+    },
+
+  MuiListItemIcon: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.primary.contrastText,
+        }),
+      },
+    },
+
+  MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({    
+
+          '&:hover': {
+            backgroundColor: theme.palette.primary.contrastText,
+            color: theme.palette.primary.main,
+            '& .MuiListItemIcon-root': {
+              color: theme.palette.primary.main,
+            },
+          },
+          '&.Mui-selected:hover': {
+          backgroundColor: theme.palette.primary.contrastText,
+          color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },  
 
     MuiInputLabel: {
       styleOverrides: {
@@ -167,7 +211,7 @@ const languages = [
       },
     },
 
-     MuiRadio: {
+    MuiRadio: {
       styleOverrides: {
         root: {
           '&.Mui-checked': {
@@ -214,7 +258,7 @@ const languages = [
         },
       },
     },
-
+  
     }
   });
 

@@ -18,14 +18,34 @@ import RadioGroup from '@mui/material/RadioGroup';
 
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
+import HomeIcon from '@mui/icons-material/Home';
 
 import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
-function Wordlomake({decks}){
+
+function Wordlomake({ decks }){
 
     let { id } = useParams();
     id = Number(id);
-    let deck = decks.find(deck => deck.deck_id === id);
+    let selectedDeck = decks.find(deck => deck.deck_id === id);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!selectedDeck) {
+        navigate('/error', {
+            replace: true,
+            state: { errormessage: 'Deck not found' }
+        })
+        }
+    }, [selectedDeck, navigate]);
+
+    if (!selectedDeck) {
+        return null;
+    }
 
     const[word, setValues] = useState({
     target_word: '',
@@ -47,7 +67,7 @@ function Wordlomake({decks}){
         });
 
     setMessage('')
-
+    setErrors('');
     };
 
     const clearFields = () => {
@@ -93,38 +113,46 @@ function Wordlomake({decks}){
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>
-    <Typography variant='h6' sx={{ mb:1 }}>Add words to: {deck.name}</Typography>
+
+    <Typography variant='h6' sx={{ mb:1 }}>Add words to: {selectedDeck.name}</Typography>
+
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
-            <TextField label='Target word' variant='outlined' name='target_word' 
-            value={word.target_word} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.target_word} helperText={errors.target_word}/>
+        <TextField label='Target word' variant='outlined' name='target_word' 
+        value={word.target_word} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.target_word} helperText={errors.target_word}/>
 
-            <TextField label='Translation' variant='outlined' name='translation' 
-            value={word.translation} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.translation} helperText={errors.translation}/>
+        <TextField label='Translation' variant='outlined' name='translation' 
+        value={word.translation} onChange={(e) => change(e)} required sx={{ width: '50%' }} error={!!errors.translation} helperText={errors.translation}/>
 
-            <TextField label='Sentence' variant='outlined' name='sentence' 
-            value={word.sentence} onChange={(e) => change(e)} fullWidth />
+        <TextField label='Sentence' variant='outlined' name='sentence' 
+        value={word.sentence} onChange={(e) => change(e)} fullWidth />
 
-            <FormControl fullWidth sx ={{ p:1, m:1 } }>
-                <FormLabel id='difficulty'>Difficulty</FormLabel>
-                <RadioGroup row name='difficulty' 
-                value={word.difficulty || 'easy'} onChange={change}>
-                        <FormControlLabel value='easy' control={<Radio />} label='Easy' />
-                        <FormControlLabel value='medium' control={<Radio />} label='Medium' />
-                        <FormControlLabel value='hard' control={<Radio />} label='Hard' />
-                    </RadioGroup>
-            </FormControl>
+        <FormControl fullWidth sx ={{ p:1, m:1 } }>
+        <FormLabel id='difficulty'>Difficulty</FormLabel>
 
-            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
-            <DesktopDatePicker label='Word added' value={word.added} disabled sx={{ width: '25%' }} />
-            </LocalizationProvider>
+        <RadioGroup row name='difficulty' value={word.difficulty || 'easy'} onChange={change}>
+            <FormControlLabel value='easy' control={<Radio />} label='Easy' />
+            <FormControlLabel value='medium' control={<Radio />} label='Medium' />
+            <FormControlLabel value='hard' control={<Radio />} label='Hard' />
+        </RadioGroup>
+
+        </FormControl>
+
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
+        <DesktopDatePicker label='Word added' value={word.added} disabled sx={{ width: '25%' }} />
+        </LocalizationProvider>
             
-            <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: 3 }}>
-            <Button onClick={() => addWord()} variant='contained' sx={{ marginRight: 3 }} startIcon={<NoteAddOutlinedIcon />}>Create</Button>
+        <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: 3 }}>
+
+            <Button onClick={() => addWord()} variant='contained' sx={{ marginRight: 1 }} startIcon={<NoteAddOutlinedIcon />}>Create</Button>
             <Button onClick={() => clearFields()} variant='contained' color='secondary' startIcon={<ClearIcon />}>Clear</Button>
-            </Box>
+            <Button onClick={() => navigate('/')} variant='contained' sx={{ marginLeft: 1 }}  component={Link} to={'/'} startIcon={<HomeIcon />}>Home</Button>
+        
+        </Box>
     </Box>
-        <Typography color='success.main'>{message}</Typography>
+
+    <Typography variant='h6' color='success.main'>{message}</Typography>
+
     </Paper>
     );
 }

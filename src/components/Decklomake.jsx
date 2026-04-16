@@ -10,13 +10,16 @@ import MenuItem from '@mui/material/MenuItem';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
+import HomeIcon from '@mui/icons-material/Home';
 
-function Decklomake({languages}){
+import { Link } from 'react-router';
+
+function Decklomake({ languages }){
 
     const[deck, setValues] = useState({
     name: '',
-    target_language: '',
-    translation_language: '',
+    target_language_id: 1,
+    translation_language_id: 2,
     picture: []
     });
 
@@ -43,9 +46,9 @@ function Decklomake({languages}){
         setValues({
         ...deck,
         name: '',
-        target_language: '',
-        translation_language: '',
-        picture: ''
+        target_language_id: 1,
+        translation_language_id: 2,
+        picture: []
         });
     
     setError('');    
@@ -62,9 +65,9 @@ function Decklomake({languages}){
 
         setValues({
             name: '',
-            target_language: '',
-            translation_language: '',
-            picture: ''
+            target_language_id: 1,
+            translation_language_id: 2,
+            picture: []
     });
     setMessage('Deck Added!');
     };
@@ -77,42 +80,48 @@ function Decklomake({languages}){
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>
+        
+    <Typography variant='h6' sx={{ mb:2 }}>Create New Deck</Typography>
 
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 
             <TextField label='Name' variant='outlined' name='name'
             value={deck.name} onChange={(e) => change(e)} required fullWidth autoFocus error={!!error} helperText={error}/>
 
-            <TextField select label='Target language' name='target_language' 
-            value={deck.target_language || 'Finnish'} onChange={(e) => change(e)} sx={{ width: '50%' }}>
+            <TextField select label='Target language' name='target_language_id' 
+            value={deck.target_language_id } onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
-                <MenuItem key={language.value} value={language.value}>
-                {language.label}
+                <MenuItem key={language.language_id} value={language.language_id }>
+                {language.language}
                 </MenuItem>
             ))}
              </TextField>
 
-            <TextField select label='Translation language' name='translation_language' 
-            value={deck.translation_language || 'English'} onChange={(e) => change(e)} sx={{ width: '50%' }}>
+            <TextField select label='Translation language' name='translation_language_id' 
+            value={deck.translation_language_id} onChange={(e) => change(e)} sx={{ width: '50%' }}>
             {languages.map((language) => (
-                <MenuItem key={language.value} value={language.value}>
-                {language.label}
+                <MenuItem key={language.language_id} value={language.language_id}>
+                {language.language}
                 </MenuItem>
             ))}
              </TextField>          
 
             <Typography display='inline'>Add picture</Typography>
+
             <Button component='label' color='secondary' startIcon={<AttachFileOutlinedIcon />}>
-            <input accept='image/*' name='picture' type='file'
-            onChange={(e) => changePicture(e)} hidden />
+            <input accept='image/*' name='picture' type='file' onChange={(e) => changePicture(e)} hidden />
             </Button>
             
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button onClick={() => addDeck()} variant='contained' sx={{ marginRight: 3 }} startIcon={<NoteAddOutlinedIcon />}>Create</Button>
+        <Button onClick={() => addDeck()} variant='contained' sx={{ marginRight: 1 }} startIcon={<NoteAddOutlinedIcon />}>Create</Button>
         <Button onClick={() => clearFields()} variant='contained' color='secondary' startIcon={<ClearIcon />}>Clear</Button>
+        <Button onClick={() => navigate('/')} variant='contained' sx={{ marginLeft: 1 }}  component={Link} to={'/'} startIcon={<HomeIcon />}>Home</Button>
         </Box>
+
     </Box>
-    <Typography color='success.main'>{message}</Typography>
+
+    <Typography variant='h6' color='success.main'>{message}</Typography>
+
     </Paper>
     );
 }
