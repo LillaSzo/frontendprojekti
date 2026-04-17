@@ -93,7 +93,7 @@ function Wordtable({ words, decks }){
   }
 
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('target_word');
+  const [orderBy, setOrderBy] = useState('added');
 
   const handleSort = (event, property) => {
   const isAsc = orderBy === property && order === 'asc';
@@ -123,19 +123,19 @@ function Wordtable({ words, decks }){
           active={orderBy === 'target_word'}
           direction={orderBy === 'target_word' ? order : 'asc'}
           onClick={( event ) => handleSort(event, 'target_word')}>
-          Target word
+          TARGET WORD
         </TableSortLabel>
         </TableCell>
 
-        <TableCell>Translation</TableCell>
-        <TableCell >Sentence</TableCell>
-        <TableCell >Difficulty</TableCell>
+        <TableCell>TRANSLATION</TableCell>
+        <TableCell >SENTENCE</TableCell>
+        <TableCell >DIFFICULTY</TableCell>
         
         <TableCell ><TableSortLabel
           active={orderBy === 'added'}
           direction={orderBy === 'added' ? order : 'asc'}
           onClick={( event ) => handleSort(event, 'added')}>
-          Added
+          ADDED
         </TableSortLabel>
         </TableCell>
 

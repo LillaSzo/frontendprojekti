@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 
-function Word({word}){
+function Word({ word }){
 
     return(
         <>
