@@ -110,18 +110,22 @@ function DecklomakeEdit({ decks, languages }){
         <TextField select label='Target language' name='target_language_id' 
         value={deck.target_language_id} onChange={(e) => change(e)} sx={{ width: '50%' }}>
         {languages.map((language) => (
+        
         <MenuItem key={language.language_id} value={language.language_id}>
             {language.language}
         </MenuItem>
+
         ))}
         </TextField>
 
         <TextField select label='Translation language' name='translation_language_id' 
         value={deck.translation_language_id} onChange={(e) => change(e)} sx={{ width: '50%' }}>
         {languages.map((language) => (
+        
         <MenuItem key={language.language_id} value={language.language_id}>
             {language.language}
         </MenuItem>
+        
         ))}
         </TextField>          
             

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+
+import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,13 +13,14 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
+import TableSortLabel from '@mui/material/TableSortLabel';
 
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router';
 
-function Wordlista({words, decks}){
+function Wordtable({ words, decks }){
 
   let { id } = useParams();
   id = Number(id);
@@ -60,7 +62,46 @@ function Wordlista({words, decks}){
 
   const filterWords = deckWords.filter((word) =>
     word.target_word.toLowerCase().includes(search.toLowerCase())
-  );
+  )
+
+  function descendingComparator(a, b, orderBy) {
+   
+  if (orderBy === 'added') {
+      const dateA = parseDate(a.added);
+      const dateB = parseDate(b.added);
+      return dateB - dateA;
+    }
+
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+
+  function parseDate(dateStr) {
+    const [day, month, year] = dateStr.split('.');
+    return new Date(year, month - 1, day);
+  }
+
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('target_word');
+
+  const handleSort = (event, property) => {
+  const isAsc = orderBy === property && order === 'asc';
+  setOrder(isAsc ? 'desc' : 'asc');
+  setOrderBy(property);
+  };
+
+  const sortedWords = [...filterWords].sort(getComparator(order, orderBy));
 
     return (
       <Box sx={{ m: 2, minWidth: 300 }}>
@@ -75,17 +116,34 @@ function Wordlista({words, decks}){
         <Table>
 
         <TableHead>
-          <TableRow>
-            <TableCell>Target word</TableCell>
-            <TableCell >Translation</TableCell>
-            <TableCell >Sentence</TableCell>
-            <TableCell >Difficulty</TableCell>
-            <TableCell >Added</TableCell>
-          </TableRow>
+        <TableRow>
+
+        <TableCell>  
+        <TableSortLabel
+          active={orderBy === 'target_word'}
+          direction={orderBy === 'target_word' ? order : 'asc'}
+          onClick={( event ) => handleSort(event, 'target_word')}>
+          Target word
+        </TableSortLabel>
+        </TableCell>
+
+        <TableCell>Translation</TableCell>
+        <TableCell >Sentence</TableCell>
+        <TableCell >Difficulty</TableCell>
+        
+        <TableCell ><TableSortLabel
+          active={orderBy === 'added'}
+          direction={orderBy === 'added' ? order : 'asc'}
+          onClick={( event ) => handleSort(event, 'added')}>
+          Added
+        </TableSortLabel>
+        </TableCell>
+
+        </TableRow>
         </TableHead>
         
         <TableBody>
-          {filterWords.map((word) => (
+          {sortedWords.map((word) => (
             <TableRow
               key={word.word_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -107,4 +165,4 @@ function Wordlista({words, decks}){
     </Box>
     );
 }
-export default Wordlista;
+export default Wordtable;

@@ -1,12 +1,14 @@
+import Typography from '@mui/material/Typography';
+
 function Word({word}){
 
     return(
         <>
-        <Tpography>Targetword: {word.target_word}</Tpography>
-        <Tpography>Translation: {word.translation}</Tpography>
-        <Tpography>Sentence: {word.sentence}</Tpography>
-        <Tpography>Difficulty: {word.difficulty}</Tpography>
-        <Tpography>Added: {word.added}</Tpography>
+        <Typography>Targetword: {word.target_word}</Typography>
+        <Typography>Translation: {word.translation}</Typography>
+        <Typography>Sentence: {word.sentence}</Typography>
+        <Typography>Difficulty: {word.difficulty}</Typography>
+        <Typography>Added: {word.added}</Typography>
         </>
     );
 }

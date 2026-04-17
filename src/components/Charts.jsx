@@ -100,6 +100,7 @@ function Charts({decks, words}){
         />
         </Card>
         </Grid>
+        
         <Grid>
         <Card sx={{ bgcolor: 'background.default', color: 'primary.contrastText', boxShadow: 'none'}}>
         <BarChart

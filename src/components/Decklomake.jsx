@@ -69,7 +69,7 @@ function Decklomake({ languages }){
             translation_language_id: 2,
             picture: []
     });
-    setMessage('Deck Added!');
+    setMessage('Deck Created!');
     };
 
     const getError = (name) => {

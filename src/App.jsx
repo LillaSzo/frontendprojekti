@@ -2,7 +2,7 @@ import MenuMUI from './components/MenuMUI';
 import Decklista from './components/Decklista';
 import Decklomake from './components/Decklomake';
 import Charts from './components/Charts';
-import Wordlista from './components/Wordlista';
+import Wordtable from './components/Wordtable';
 import Wordlomake from './components/Wordlomake';
 import DecklomakeEdit from './components/DecklomakeEdit';
 import Error from './components/Error';
@@ -258,6 +258,15 @@ const languages = [
         },
       },
     },
+
+    MuiTableSortLabel: {
+      styleOverrides: {
+      icon: {
+      color: '#3B3B1A',
+      opacity: 1, 
+      },
+    },
+  },
   
     }
   });
@@ -276,7 +285,7 @@ function App() {
               <Route path='/add' element={<Decklomake languages={languages}/>} />
               <Route path='/addword/:id' element={<Wordlomake decks={decks}/>} />
               <Route path='/edit/:id' element={<DecklomakeEdit decks={decks} languages = {languages}/>} />
-              <Route path='/learn/:id' element={<Wordlista words={words} decks = {decks}/>} />
+              <Route path='/learn/:id' element={<Wordtable words={words} decks = {decks}/>} />
               <Route path='/statistics' element={<Charts decks={decks} words = {words} />} />
               <Route path='/error' element={<Error />} />
               <Route path='*' element={<Error error='Page not found' />} />
