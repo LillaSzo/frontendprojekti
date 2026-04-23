@@ -21,7 +21,7 @@ const decks = [
     name: 'Yleinen',
     target_language_id: 1,
     translation_language_id: 2,
-    picture: 'pictures/redcard.png',
+    picture: 'images/redcard.png',
     wordcount: 1
   },
   {
@@ -29,7 +29,7 @@ const decks = [
     name: 'Ohjelmointi',
     target_language_id: 1,
     translation_language_id: 2,
-    picture: 'pictures/purplecard.png',
+    picture: 'images/purplecard.png',
     wordcount: 7
   },
   {    
@@ -37,7 +37,7 @@ const decks = [
     name: 'Tyhjä Test',
     target_language_id: 1,
     translation_language_id: 2,
-    picture: 'pictures/bluecard.png',
+    picture: 'images/bluecard.png',
     wordcount: 0
   }
 ] 

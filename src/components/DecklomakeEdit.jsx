@@ -83,7 +83,7 @@ function DecklomakeEdit({ decks, languages }){
         }
 
     setValues({
-         id: id,
+        id: id,
         name: deck.name,
         target_language_id: 1,
         translation_language_id: 2,
