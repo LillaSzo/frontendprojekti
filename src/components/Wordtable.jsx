@@ -11,6 +11,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import HomeIcon from '@mui/icons-material/Home';
 import TableSortLabel from '@mui/material/TableSortLabel';
@@ -130,7 +132,8 @@ function Wordtable({ words, decks }){
         <TableCell>TRANSLATION</TableCell>
         <TableCell >SENTENCE</TableCell>
         <TableCell >DIFFICULTY</TableCell>
-        
+        <TableCell >POS</TableCell>
+
         <TableCell ><TableSortLabel
           active={orderBy === 'added'}
           direction={orderBy === 'added' ? order : 'asc'}
@@ -139,6 +142,7 @@ function Wordtable({ words, decks }){
         </TableSortLabel>
         </TableCell>
 
+        <TableCell >FAVOURITE</TableCell>
         </TableRow>
         </TableHead>
         
@@ -154,7 +158,16 @@ function Wordtable({ words, decks }){
               <TableCell >{word.translation}</TableCell>
               <TableCell >{word.sentence}</TableCell>
               <TableCell >{word.difficulty}</TableCell>
+              <TableCell >{word.pos}</TableCell>
               <TableCell >{word.added}</TableCell>
+              <TableCell>
+              {word.favourite ? (
+                  <FavoriteIcon />
+                    ) : (
+                  <FavoriteBorderIcon />
+                  )}
+              </TableCell>
+
             </TableRow>
           ))}
         </TableBody>

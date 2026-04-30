@@ -50,6 +50,8 @@ const words = [
     translation: 'cat',
     sentence: 'Heikki on paras kissa maailmassa.',
     difficulty: 'easy',
+    favourite: false,
+    pos: 'noun',
     added: '19.03.2026'
   },
 
@@ -60,6 +62,8 @@ const words = [
     translation: 'default value',
     sentence: 'Lomakkeen kentään oli asetettu oletusarvo.',
     difficulty: 'medium',
+    favourite: true,
+    pos: 'noun',
     added: '19.03.2026'
   },
 
@@ -70,6 +74,8 @@ const words = [
     translation: 'framework',
     sentence: 'Spring-kehystä on käytetty backend-sovelluksen rakentamiseen.',
     difficulty: 'medium',
+    favourite: false,
+    pos: 'noun',
     added: '19.03.2026'
   },
   {
@@ -79,6 +85,8 @@ const words = [
     translation: 'arrow notation',
     sentence: 'Funktiota määritellään nuolinotaatiolla.',
     difficulty: 'medium',
+    favourite: false,
+    pos: 'noun',
     added: '25.03.2026'
   },
   {
@@ -88,6 +96,8 @@ const words = [
     translation: 'inheritance',
     sentence: 'Kissa-luokka perii ominaisuutensa Eläin-luokalta.',
     difficulty: 'medium',
+    favourite: false,
+    pos: 'noun',
     added: '16.01.2026'
   },
   {
@@ -97,6 +107,8 @@ const words = [
     translation: 'interface',
     sentence: 'Rajapinta määrittelee metodit, mutta ei niiden toteutusta.',
     difficulty: 'medium',
+    favourite: false,
+    pos: 'noun',
     added: '24.02.2026'
   },
   {
@@ -106,6 +118,8 @@ const words = [
     translation: 'dependency',
     sentence: 'Kontrolleri saa tietokantayhteyden riippuvuuden kautta.',
     difficulty: 'hard',
+    favourite: false,
+    pos: 'noun',
     added: '05.01.2026'
   },
   {
@@ -115,6 +129,8 @@ const words = [
     translation: 'encryption',
     sentence: 'Käyttäjän salasana tallennetaan tietokantaan salattuna.',
     difficulty: 'easy',
+    favourite: false,
+    pos: 'noun',
     added: '20.04.2026'
   }
 ];

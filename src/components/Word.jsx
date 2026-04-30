@@ -1,4 +1,6 @@
-import Typography from '@mui/material/Typography';
+/* import Typography from '@mui/material/Typography';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function Word({ word }){
 
@@ -8,9 +10,14 @@ function Word({ word }){
         <Typography>Translation: {word.translation}</Typography>
         <Typography>Sentence: {word.sentence}</Typography>
         <Typography>Difficulty: {word.difficulty}</Typography>
-        <Typography>Added: {word.added}</Typography>
+        <Typography>Part of Speech: {word.pos}</Typography>
+        <Typography>{word.favourite ? (
+                    <FavoriteIcon />
+                    ) : (
+                    <FavoriteBorderIcon />
+                    )}</Typography>
         </>
     );
 }
 
-export default Word;
+export default Word; */

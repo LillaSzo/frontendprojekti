@@ -266,8 +266,8 @@ app.post('/deck/:id/word', (req, res) => {
     let id = req.params.id;
     let word = req.body;
 
-    db.run('insert into word (deck_id, target_word, translation, sentence, difficulty, added) values (?, ?, ?, ?, ?, ?)',
-        [id, word.target_word, word.translation, word.sentence, word.difficulty, word.added], (error) => {
+    db.run('insert into word (deck_id, target_word, translation, sentence, difficulty, favourite, pos, added) values (?, ?, ?, ?, ?, ?, ?, ?)',
+        [id, word.target_word, word.translation, word.sentence, word.difficulty, word.favourite, word.difficulty, word.added], (error) => {
 
             if (error) {
                 console.log(error.message);
@@ -282,12 +282,14 @@ app.put('/word/update/:id', (req, res) => {
     let id = req.params.id;
     let word = req.body;
 
-    db.run(`update word set target_word = ?, translation = ?, sentence = ?, difficulty = ?, added = ? WHERE word_id = ?`,
+    db.run(`update word set target_word = ?, translation = ?, sentence = ?, difficulty = ?, favourite = ?, pos = ?, added = ? WHERE word_id = ?`,
         [
         word.target_word, 
         word.translation, 
         word.sentence, 
-        word.difficulty, 
+        word.difficulty,
+        word.favourite,
+        word.pos,
         word.added,
         id
         ],

@@ -15,6 +15,10 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
 
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -52,6 +56,8 @@ function Wordlomake({ decks }){
     translation: '',
     sentence: '',
     difficulty: '',
+    favourite: false,
+    pos: 'noun',
     added: new Date()
     });
 
@@ -70,6 +76,13 @@ function Wordlomake({ decks }){
     setErrors('');
     };
 
+    const handleFavourite = (e) => {
+    setValues({
+    ...word,
+    favourite: e.target.checked
+    });
+    };
+
     const clearFields = () => {
         setValues({
         ...word,
@@ -77,6 +90,8 @@ function Wordlomake({ decks }){
         translation: '',
         sentence: '',
         difficulty: '',
+        favourite: false,
+        pos: 'noun',
         added: new Date()
         });
     setErrors('');
@@ -99,6 +114,8 @@ function Wordlomake({ decks }){
             translation: '',
             sentence: '',
             difficulty: '',
+            favourite: false,
+            pos: '',
             added: new Date()
     });
     setErrors('');
@@ -127,10 +144,26 @@ function Wordlomake({ decks }){
         <TextField label='Sentence' variant='outlined' name='sentence' 
         value={word.sentence} onChange={(e) => change(e)} fullWidth />
 
+        <FormControl sx={{ width: '50%' }}>
+        <InputLabel id="pos">Part of Speech</InputLabel>
+        <Select name = 'pos' labelId="pos" id="pos" value={word.pos} label="Part of Speech" onChange={(e) => change(e)}>
+        <MenuItem value={'noun'}>Noun</MenuItem>
+        <MenuItem value={'verb'}>Verb</MenuItem>
+        <MenuItem value={'adjective'}>Adjective</MenuItem>
+        <MenuItem value={'adverb'}>Adverb</MenuItem>
+        <MenuItem value={'pronoun'}>Pronoun</MenuItem>
+
+        </Select>
+        </FormControl>
+
+        
+        <Typography sx={{ display: 'inline', ml: 2 }}>Favourite</Typography>
+        <Switch checked={word.favourite} onChange={(e) => handleFavourite(e)}/>
+
         <FormControl fullWidth sx ={{ p:1, m:1 } }>
         <FormLabel id='difficulty'>Difficulty</FormLabel>
 
-        <RadioGroup row name='difficulty' value={word.difficulty || 'easy'} onChange={change}>
+        <RadioGroup row name='difficulty' value={word.difficulty || 'easy'} onChange={(e) => change(e)}>
             <FormControlLabel value='easy' control={<Radio />} label='Easy' />
             <FormControlLabel value='medium' control={<Radio />} label='Medium' />
             <FormControlLabel value='hard' control={<Radio />} label='Hard' />
