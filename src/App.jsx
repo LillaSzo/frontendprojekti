@@ -241,48 +241,51 @@ const languages = [
       styleOverrides: {
         root: {
           backgroundColor: '#FAF9F6',
-          boxShadow: '0px 3px 6px rgba(0,0,0,0.3)',
+          boxShadow: '0px 3px 6px #3B3B1A',
         },
       },
     },
 
-    MuiTableHead: {
+    MuiDataGrid: {
       styleOverrides: {
         root: {
+          boxShadow: '0px 3px 6px #3B3B1A',
+        },
+        
+        columnHeader: {
           backgroundColor: '#AEC8A4',
-        },
-      },
-    },
 
-    MuiTableBody: {
-      styleOverrides: {
-        root: {
-          '& .MuiTableRow-root:nth-of-type(even)': {
+          '& .MuiIconButton-root': {
+            backgroundColor: 'transparent',
+          },
+          '& .MuiIconButton-root:hover': {
+            backgroundColor: 'transparent',
+          },
+        },
+
+        columnSeparator: {
+          color: '#3B3B1A',
+        },
+
+        footerContainer: {
+          backgroundColor: '#E7EFC7',
+        },
+
+        cell: {
+          borderBottom: '1px solid #3B3B1A',
+        },
+
+        row: {
+          '&:nth-of-type(even)': {
             backgroundColor: '#AEC8A4',
           },
-          '& .MuiTableRow-root:nth-of-type(odd)': {
+          '&:nth-of-type(odd)': {
             backgroundColor: '#E7EFC7',
           },
         },
       },
     },
-
-    MuiTableCell: {
-      styleOverrides: {
-        root: {
-          borderBottom: '1px solid #3B3B1A',
-        },
-      },
-    },
-
-    MuiTableSortLabel: {
-      styleOverrides: {
-      icon: {
-      color: '#3B3B1A',
-      opacity: 1, 
-      },
-    },
-  },
+  
   
     }
   });

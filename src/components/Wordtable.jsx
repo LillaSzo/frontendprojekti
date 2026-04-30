@@ -1,21 +1,13 @@
 import { useState } from 'react';
 
-import Paper from '@mui/material/Paper';
+import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import HomeIcon from '@mui/icons-material/Home';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
@@ -62,48 +54,30 @@ function Wordtable({ words, decks }){
     setSearch(e.target.value);
   };
 
-  const filterWords = deckWords.filter((word) =>
+  const filteredWords = deckWords.filter((word) =>
     word.target_word.toLowerCase().includes(search.toLowerCase())
   )
 
-  function descendingComparator(a, b, orderBy) {
-   
-  if (orderBy === 'added') {
-      const dateA = parseDate(a.added);
-      const dateB = parseDate(b.added);
-      return dateB - dateA;
-    }
-
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
-  function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-
-  function parseDate(dateStr) {
-    const [day, month, year] = dateStr.split('.');
-    return new Date(year, month - 1, day);
-  }
-
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('added');
-
-  const handleSort = (event, property) => {
-  const isAsc = orderBy === property && order === 'asc';
-  setOrder(isAsc ? 'desc' : 'asc');
-  setOrderBy(property);
-  };
-
-  const sortedWords = [...filterWords].sort(getComparator(order, orderBy));
+  const columns = [
+    { field: 'target_word', headerName: 'Target Word', flex: 1 },
+    { field: 'translation', headerName: 'Translation', flex: 1 },
+    { field: 'sentence', headerName: 'Sentence', flex: 2 },
+    { field: 'difficulty', headerName: 'Difficulty', flex: 1, sortable: false},
+    { field: 'pos', headerName: 'POS', flex: 1 },
+    { field: 'added', headerName: 'Added', flex: 1 },
+    {field: 'favourite', headerName: 'Favourite', flex: 1, sortable: false,
+        renderCell: (params) =>
+          params.value ? (
+            <FavoriteIcon />
+          ) : (
+            <FavoriteBorderIcon />
+          )
+      }
+    ];
+  const rows = filteredWords.map(word => ({
+      id: word.word_id,
+      ...word
+  }));
 
     return (
       <Box sx={{ m: 2, minWidth: 300 }}>
@@ -113,69 +87,17 @@ function Wordtable({ words, decks }){
 
         <Button onClick={() => navigate('/')} variant='contained' sx={{ marginLeft: 'auto' }}  component={Link} to={'/'} startIcon={<HomeIcon />}>Home</Button>    
         </Box>
-
-        <TableContainer component={Paper} sx={{ boxShadow: 3,}}>
-        <Table>
-
-        <TableHead>
-        <TableRow>
-
-        <TableCell>  
-        <TableSortLabel
-          active={orderBy === 'target_word'}
-          direction={orderBy === 'target_word' ? order : 'asc'}
-          onClick={( event ) => handleSort(event, 'target_word')}>
-          TARGET WORD
-        </TableSortLabel>
-        </TableCell>
-
-        <TableCell>TRANSLATION</TableCell>
-        <TableCell >SENTENCE</TableCell>
-        <TableCell >DIFFICULTY</TableCell>
-        <TableCell >POS</TableCell>
-
-        <TableCell ><TableSortLabel
-          active={orderBy === 'added'}
-          direction={orderBy === 'added' ? order : 'asc'}
-          onClick={( event ) => handleSort(event, 'added')}>
-          ADDED
-        </TableSortLabel>
-        </TableCell>
-
-        <TableCell >FAVOURITE</TableCell>
-        </TableRow>
-        </TableHead>
-        
-        <TableBody>
-          {sortedWords.map((word) => (
-            <TableRow
-              key={word.word_id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component='th' scope='row'>
-              {word.target_word}
-              </TableCell>
-              <TableCell >{word.translation}</TableCell>
-              <TableCell >{word.sentence}</TableCell>
-              <TableCell >{word.difficulty}</TableCell>
-              <TableCell >{word.pos}</TableCell>
-              <TableCell >{word.added}</TableCell>
-              <TableCell>
-              {word.favourite ? (
-                  <FavoriteIcon />
-                    ) : (
-                  <FavoriteBorderIcon />
-                  )}
-              </TableCell>
-
-            </TableRow>
-          ))}
-        </TableBody>
-        
-      </Table>
-      </TableContainer>
-
+      
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          disableRowSelectionOnClick
+          pageSizeOptions={[10, 25, 50]}
+          initialState={{
+          pagination: { paginationModel: { pageSize: 10, page: 0 } }
+          }}
+        />
     </Box>
     );
-}
+  }
 export default Wordtable;
