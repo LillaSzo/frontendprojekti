@@ -60,10 +60,10 @@ function Wordtable({ words, decks }){
 
   const columns = [
     { field: 'target_word', headerName: 'Target Word', flex: 1 },
-    { field: 'translation', headerName: 'Translation', flex: 1 },
-    { field: 'sentence', headerName: 'Sentence', flex: 2 },
+    { field: 'translation', headerName: 'Translation', sortable: false, flex: 1 },
+    { field: 'sentence', headerName: 'Sentence', sortable: false, flex: 2 },
     { field: 'difficulty', headerName: 'Difficulty', flex: 1, sortable: false},
-    { field: 'pos', headerName: 'POS', flex: 1 },
+    { field: 'pos', headerName: 'POS', flex: 1,sortable: false },
     { field: 'added', headerName: 'Added', flex: 1 },
     {field: 'favourite', headerName: 'Favourite', flex: 1, sortable: false,
         renderCell: (params) =>

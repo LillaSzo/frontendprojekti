@@ -2,25 +2,25 @@ const decks = [
   {
     deck_id: 1,
     name: 'Yleinen',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'redcard.png',
   },
   {
     deck_id: 2,
     name: 'Ohjelmointi',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'purplecard.png',
   },
   {    
     deck_id: 3,
     name: 'Tyhjä Test',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'bluecard.png',
   }
-] 
+];
 
 const words = [
   {
@@ -32,7 +32,7 @@ const words = [
     difficulty: 'easy',
     favourite: false,
     pos: 'noun',
-    added: '19.03.2026'
+    added: '2026-03-19'
   },
 
   {
@@ -44,7 +44,7 @@ const words = [
     difficulty: 'medium',
     favourite: true,
     pos: 'noun',
-    added: '19.03.2026'
+    added: '2026-03-19'
   },
 
   {
@@ -56,7 +56,7 @@ const words = [
     difficulty: 'medium',
     favourite: false,
     pos: 'noun',
-    added: '19.03.2026'
+    added: '2026-03-19'
   },
   {
     word_id: 5,
@@ -67,7 +67,7 @@ const words = [
     difficulty: 'medium',
     favourite: false,
     pos: 'noun',
-    added: '25.03.2026'
+    added: '2026-03-25'
   },
   {
     word_id: 6,
@@ -78,7 +78,7 @@ const words = [
     difficulty: 'medium',
     favourite: false,
     pos: 'noun',
-    added: '16.01.2026'
+    added: '2026-01-16'
   },
   {
     word_id: 7,
@@ -89,7 +89,7 @@ const words = [
     difficulty: 'medium',
     favourite: true,
     pos: 'noun',
-    added: '24.02.2026'
+    added: '2026-02-24'
   },
   {
     word_id: 8,
@@ -100,7 +100,7 @@ const words = [
     difficulty: 'hard',
     favourite: false,
     pos: 'noun',
-    added: '05.01.2026'
+    added: '2026-01-05'
   },
   {
     word_id: 9,
@@ -111,28 +111,9 @@ const words = [
     difficulty: 'easy',
     favourite: false,
     pos: 'noun',
-    added: '20.04.2026'
+    added: '2026-05-10'
   }
 ];
-
-const languages = [
-  {
-    language_id: 1,
-    language: 'Finnish'
-  },
-  {
-    language_id: 2,
-    language: 'English'
-  },
-  {
-    language_id: 3,
-    language: 'Hungarian'
-  },
-  {
-    language_id: 4,
-    language: 'Swedish'
-  }
-  ];
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('wordapp.db');
@@ -142,25 +123,15 @@ db.serialize(() => {
 
     db.run(`DROP TABLE IF EXISTS word`);
     db.run('DROP TABLE IF EXISTS deck');
-    db.run(`DROP TABLE IF EXISTS language`);
 
-
-    db.run(`
-    CREATE TABLE language (
-    language_id INTEGER PRIMARY KEY,
-    language TEXT
-    )
-    `);
 
     db.run(`
     CREATE TABLE deck (
       deck_id INTEGER PRIMARY KEY,
-      name TEXT,
-      target_language_id INTEGER,
-      translation_language_id INTEGER,
-      picture TEXT,
-      FOREIGN KEY (target_language_id) REFERENCES language(language_id),
-      FOREIGN KEY (translation_language_id) REFERENCES language(language_id)
+      name TEXT NOT NULL CHECK(length(name) BETWEEN 2 AND 15),
+      target_language TEXT,
+      translation_language TEXT,
+      picture TEXT
     )
     `);
 
@@ -168,31 +139,20 @@ db.serialize(() => {
     CREATE TABLE word (
     word_id INTEGER PRIMARY KEY,
     deck_id INTEGER,
-    target_word TEXT,
-    translation TEXT,
+    target_word TEXT NOT NULL CHECK(length(target_word) BETWEEN 2 AND 15),
+    translation TEXT NOT NULL CHECK(length(translation) BETWEEN 2 AND 15),
     sentence TEXT,
     difficulty TEXT,
+    favourite BOOLEAN,
+    pos TEXT,
     added TEXT,
     FOREIGN KEY (deck_id) REFERENCES deck(deck_id) ON DELETE CASCADE
     )
     `);
 
-
-    const langStmt = db.prepare(`
-    INSERT INTO language 
-    (language_id, language)
-    VALUES (?, ?)
-    `);
-
-    languages.forEach(lang => {
-    langStmt.run(lang.language_id, lang.language);
-    });
-
-    langStmt.finalize();
-
     const stmt = db.prepare(`
     INSERT INTO deck 
-    (deck_id, name, target_language_id, translation_language_id, picture)
+    (deck_id, name, target_language, translation_language, picture)
     VALUES (?, ?, ?, ?, ?)
     `);
 
@@ -200,8 +160,8 @@ db.serialize(() => {
         stmt.run(
             deck.deck_id,
             deck.name,
-            deck.target_language_id,
-            deck.translation_language_id,
+            deck.target_language,
+            deck.translation_language,
             deck.picture
         );
         console.log('Row added ' + deck.name);

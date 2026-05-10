@@ -1,26 +1,49 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-
 import Deck from './Deck';
 import { Typography } from '@mui/material';
 
 import { useNavigate } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-function Decklista({decks}){
+import { getDecks } from './decks';
+
+function Decklista( ){
 
   const navigate = useNavigate();
 
-    useEffect(() => {
-        
-        if (typeof decks === 'undefined' || decks.length === 0) {
-        navigate('/error', {
-            replace: true,
-            state: { errormessage: 'You have no decks.' }
-        })
-        }
-    }, [decks, navigate]);
+  const [decks, setDecks] = useState([]);
+  const [message, setMessage] = useState('Searching');
+
+  const fetchData = async () => {
+    try {
+      const response = await getDecks();
+
+      if (response.status !== 200) {
+        throw new Error('Failed to search decks');
+      }
+
+      if (response.data.length === 0) {
+        throw new Error('No decks to load');
+      }
+
+      setDecks(response.data);
+      setMessage('');
+
+    } catch (error) {
+
+      navigate('/error', {
+        replace: true,
+        state: { errormessage: error.message }
+      });
+    }
+  }
+  useEffect(() => { fetchData() }, []);
+
+  if (message.length > 0) {
+    return (<Typography>{message}</Typography>)
+  }
     
     return(
     <Box sx={{ p: 2, minWidth: 300, }}>

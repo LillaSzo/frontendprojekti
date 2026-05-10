@@ -19,24 +19,24 @@ const decks = [
   {
     deck_id: 1,
     name: 'Yleinen',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'images/redcard.png',
     wordcount: 1
   },
   {
     deck_id: 2,
     name: 'Ohjelmointi',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'images/purplecard.png',
     wordcount: 7
   },
   {    
     deck_id: 3,
     name: 'Tyhjä Test',
-    target_language_id: 1,
-    translation_language_id: 2,
+    target_language: 'Finnish',
+    translation_language: 'English',
     picture: 'images/bluecard.png',
     wordcount: 0
   }
@@ -135,25 +135,6 @@ const words = [
   }
 ];
 
-const languages = [
-  {
-    language_id: 1,
-    language: 'Finnish'
-  },
-  {
-    language_id: 2,
-    language: 'English'
-  },
-  {
-    language_id: 3,
-    language: 'Hungarian'
-  },
-  {
-    language_id: 4,
-    language: 'Swedish'
-  }
-  ];
-
   const theme = createTheme({
   palette: {
     primary: { main: '#AEC8A4', contrastText: '#3B3B1A'},
@@ -241,7 +222,7 @@ const languages = [
       styleOverrides: {
         root: {
           backgroundColor: '#FAF9F6',
-          boxShadow: '0px 3px 6px #3B3B1A',
+          boxShadow: '0px 1px 3px #3B3B1A',
         },
       },
     },
@@ -299,11 +280,11 @@ function App() {
 
           <BrowserRouter>
           <Routes>
-            <Route path='/' element={<MenuMUI decks={decks} languages={languages} words ={words}/>} >
-              <Route index element={<Decklista decks={decks}/>} />
-              <Route path='/add' element={<Decklomake languages={languages}/>} />
+            <Route path='/' element={<MenuMUI />} >
+              <Route index element={<Decklista />} />
+              <Route path='/add' element={<Decklomake />} />
               <Route path='/addword/:id' element={<Wordlomake decks={decks}/>} />
-              <Route path='/edit/:id' element={<DecklomakeEdit decks={decks} languages = {languages}/>} />
+              <Route path='/edit/:deck_id' element={<DecklomakeEdit />} />
               <Route path='/learn/:id' element={<Wordtable words={words} decks = {decks}/>} />
               <Route path='/statistics' element={<Charts decks={decks} words = {words} />} />
               <Route path='/error' element={<Error />} />

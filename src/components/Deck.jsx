@@ -12,21 +12,21 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 import { Link } from 'react-router';
 
-function Deck ({deck}){
+function Deck ({ deck }){
 
     return(
     <Card sx={{ width: 230, boxShadow: 'none', bgcolor: 'background.default'  }}>
         {deck.picture ? 
-            <CardMedia sx={{ height: 325 }} component='img' image={deck.picture} alt={deck.name}/>
+            <CardMedia sx={{ height: 325 }} component='img' image={'http://localhost:8080/download/' + deck.picture} alt={deck.name}/>
             :
-            <CardMedia sx={{ height: 325 }} component='img' image={'pictures/Yleinen.png'} alt={'No picture'} />
+            <CardMedia sx={{ height: 325 }} component='img' image={'images/noimg.png'} alt={'No picture'} />
         }
 
-    <CardContent sx={{ p:1, }}>
+    <CardContent sx={{ p:1 }}>
         <Typography variant='h6' align='center'>{deck.name}</Typography>
-        <Typography>Target Language: {deck.target_language}</Typography>  {/* kentä tulee näkyviin, kun backend on toteutettu */}
-        <Typography>Translation Language: {deck.translation_language}</Typography> {/* kentä tulee näkyviin, kun backend on toteutettu */}
-        <Typography>Wordcount: {deck.wordcount}</Typography>
+        <Typography>From: {deck.target_language}</Typography> 
+        <Typography>To: {deck.translation_language}</Typography>
+        <Typography>Wordcount: </Typography>
     </CardContent>
 
     <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
