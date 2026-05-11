@@ -48,7 +48,7 @@ const words = [
   },
 
   {
-    word_id: 4,
+    word_id: 3,
     deck_id: 2,
     target_word: 'kehys',
     translation: 'framework',
@@ -59,7 +59,7 @@ const words = [
     added: '2026-03-19'
   },
   {
-    word_id: 5,
+    word_id: 4,
     deck_id: 2,
     target_word: 'nuolinotaatio',
     translation: 'arrow notation',
@@ -70,7 +70,7 @@ const words = [
     added: '2026-03-25'
   },
   {
-    word_id: 6,
+    word_id: 5,
     deck_id: 2,
     target_word: 'perintä',
     translation: 'inheritance',
@@ -81,7 +81,7 @@ const words = [
     added: '2026-01-16'
   },
   {
-    word_id: 7,
+    word_id: 6,
     deck_id: 2,
     target_word: 'rajapinta',
     translation: 'interface',
@@ -92,7 +92,7 @@ const words = [
     added: '2026-02-24'
   },
   {
-    word_id: 8,
+    word_id: 7,
     deck_id: 2,
     target_word: 'riippuvuus',
     translation: 'dependency',
@@ -103,7 +103,7 @@ const words = [
     added: '2026-01-05'
   },
   {
-    word_id: 9,
+    word_id: 8,
     deck_id: 2,
     target_word: 'salaus',
     translation: 'encryption',

@@ -12,7 +12,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 import { Link } from 'react-router';
 
-function Deck ({ deck }){
+function Deck ({ deck, handleDelete }){
 
     return(
     <Card sx={{ width: 230, boxShadow: 'none', bgcolor: 'background.default'  }}>
@@ -24,16 +24,15 @@ function Deck ({ deck }){
 
     <CardContent sx={{ p:1 }}>
         <Typography variant='h6' align='center'>{deck.name}</Typography>
-        <Typography>From: {deck.target_language}</Typography> 
-        <Typography>To: {deck.translation_language}</Typography>
-        <Typography>Wordcount: </Typography>
+        <Typography>Target language: {deck.target_language}</Typography> 
+        <Typography>Translation: {deck.translation_language}</Typography>
     </CardContent>
 
     <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
         <IconButton component={Link} to={'/addword/' + deck.deck_id}><AddOutlinedIcon/></IconButton>
         <IconButton component={Link} to={'/edit/' + deck.deck_id}><EditOutlinedIcon /></IconButton>
-        <IconButton component={Link} to={'/learn/' + deck.deck_id}><LightbulbOutlinedIcon /></IconButton>
-        <IconButton><DeleteOutlinedIcon /></IconButton>
+        <IconButton component={Link} to={'/deck/' + deck.deck_id + '/words'}><LightbulbOutlinedIcon /></IconButton>
+        <IconButton onClick={() => handleDelete(deck.deck_id)}><DeleteOutlinedIcon /></IconButton>
     </CardActions>
 
     </Card>

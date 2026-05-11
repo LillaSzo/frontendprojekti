@@ -146,7 +146,7 @@ const changeDeck = async () => {
     return (
     <Paper sx={{ p: 1, m: 2 }}>
 
-    <Typography variant='h6' sx={{ mb:2 }}>Edit: {deck.name}</Typography>
+    <Typography variant='h6' sx={{ mb:2 }}>Edit: {selectedDeck.name}</Typography>
 
     <Box component='form' autoComplete='off' sx={{ '& .MuiTextField-root': { mb: 2 } }}>
 

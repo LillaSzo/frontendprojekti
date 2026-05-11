@@ -29,33 +29,23 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router';
 
+import { getDeckById } from './decks';
+import { addWordtoDeck } from './decks';
 
-function Wordlomake({ decks }){
+
+function Wordlomake({  }){
 
     let { id } = useParams();
-    id = Number(id);
-    let selectedDeck = decks.find(deck => deck.deck_id === id);
-
+    let deck_id = Number( id );
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!selectedDeck) {
-        navigate('/error', {
-            replace: true,
-            state: { errormessage: 'Deck not found' }
-        })
-        }
-    }, [selectedDeck, navigate]);
-
-    if (!selectedDeck) {
-        return null;
-    }
+    const [selectedDeck, setSelectedDeck] = useState(null);
+ 
 
     const[word, setValues] = useState({
     target_word: '',
     translation: '',
     sentence: '',
-    difficulty: '',
+    difficulty: 'easy',
     favourite: false,
     pos: 'noun',
     added: new Date()
@@ -66,6 +56,28 @@ function Wordlomake({ decks }){
     target_word: '', 
     translation: '' });
 
+    useEffect(() => {
+    const fetchDeck = async () => {
+    const response = await getDeckById(deck_id);
+
+        if (response.status !== 200) {
+        navigate('/error', {
+            replace: true,
+            state: { errormessage: 'Deck not found' }
+        });
+        return;
+        }
+        setSelectedDeck(response.data);
+    };
+
+    fetchDeck();
+    }, [deck_id, navigate]);
+    
+
+    if (!selectedDeck) {
+    return <Typography>Loading...</Typography>;
+    }
+
     const change = (e) => {
     setValues({
         ...word,
@@ -73,7 +85,10 @@ function Wordlomake({ decks }){
         });
 
     setMessage('')
-    setErrors('');
+    setErrors({
+    target_word: '',
+    translation: ''
+    });
     };
 
     const handleFavourite = (e) => {
@@ -89,16 +104,18 @@ function Wordlomake({ decks }){
         target_word: '',
         translation: '',
         sentence: '',
-        difficulty: '',
+        difficulty: 'easy',
         favourite: false,
         pos: 'noun',
         added: new Date()
         });
-    setErrors('');
-    setMessage('');
+    setErrors({
+    target_word: '',
+    translation: ''
+    });
     };
 
-    const addWord = () => {
+    const addWord = async () => {
         const fieldErr1 = getErrors(word.target_word);
         const fieldErr2 = getErrors(word.translation);
 
@@ -109,18 +126,31 @@ function Wordlomake({ decks }){
         return;
         }
 
-        setValues({
-            target_word: '',
-            translation: '',
-            sentence: '',
-            difficulty: '',
-            favourite: false,
-            pos: '',
-            added: new Date()
+    try {
+    const response = await addWordtoDeck(id, {
+      target_word: word.target_word,
+      translation: word.translation,
+      sentence: word.sentence,
+      difficulty: word.difficulty,
+      favourite: word.favourite,
+      pos: word.pos,
+      added: word.added,
     });
-    setErrors('');
-    setMessage('Word added!')
-    };
+
+    if (response.status !== 200) {
+      throw new Error('Failed to add word');
+    }
+
+    clearFields();
+    setMessage('Word added successfully');
+
+    } catch (error) {
+    navigate('/error', {
+      replace: true,
+      state: { errormessage: error.message }
+    });
+  }
+};
 
     const getErrors=(word) => {
     if (!word) return 'Field can not be empty'

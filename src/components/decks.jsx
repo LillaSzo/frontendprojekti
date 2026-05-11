@@ -26,6 +26,36 @@ export const getDeckById = async (deck_id) => {
   }
 };
 
+export const addWordtoDeck = async ( deck_id , word) => {
+    try {
+    const response = await axios.post(palvelin + 'deck/' + deck_id + '/word', word,
+    { headers: { 'Content-Type': 'application/json' } }
+    );
+
+    return (response);
+  } catch (error) {
+    return ({ status: error.status, message: 'Failed to add: ' + error.message });
+  }
+}
+
+export const getWords = async () => {
+  try {
+    const response = await axios.get(palvelin + 'word/all');
+    return (response);
+  } catch (error) {
+    return ({ status: error.status, message: 'Failed to load: ' + error.message });
+  }
+}
+
+export const getWordsByDeck = async ( deck_id ) => {
+  try {
+    const response = await axios.get(palvelin + 'deck/' + deck_id + '/words');
+    return (response);
+  } catch (error) {
+    return ({ status: error.status, message: 'Failed to load: ' + error.message });
+  }
+}
+
 
 export const addDeck = async ( deck ) => {
   try {
@@ -59,6 +89,15 @@ export const updateDeck = async (deck_id, deck) => {
 export const deleteDeck = async (id) => {
   try {
     const response = await axios.delete(palvelin + 'deck/delete/' + id);
+    return (response);
+  } catch (error) {
+    return ({ status: error.status, message: 'Failed to delete: ' + error.message });
+  }
+}
+
+export const deleteWord = async (id) => {
+  try {
+    const response = await axios.delete(palvelin + 'word/delete/' + id);
     return (response);
   } catch (error) {
     return ({ status: error.status, message: 'Failed to delete: ' + error.message });

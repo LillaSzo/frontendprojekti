@@ -178,6 +178,22 @@ app.get('/word/all', (req, res) => {
     });
 });
 
+app.get('/deck/:id/words', (req, res) => {
+
+    let deck_id = req.params.id;
+    db.all(
+        'select * from word where deck_id = ?',
+        [deck_id],
+        (error, result) => {
+        if (error) {
+            console.log(error.message);
+            return res.status(400).json({message: error.message});
+            }
+            return res.status(200).json(result);
+        }
+    );
+});
+
 app.get('/word/one/:id', (req, res) => {
     let id = req.params.id;
 

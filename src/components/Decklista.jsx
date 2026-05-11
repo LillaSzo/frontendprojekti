@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { getDecks } from './decks';
+import { deleteDeck } from './decks';
+
 
 function Decklista( ){
 
@@ -44,6 +46,23 @@ function Decklista( ){
   if (message.length > 0) {
     return (<Typography>{message}</Typography>)
   }
+
+  const handleDelete = async (id) => {
+  try {
+    const response = await deleteDeck(id);
+    if (response.status !== 200) {
+      throw new Error('Failed to delete deck');
+    }
+
+  setDecks(previous => previous.filter(deck => deck.deck_id !== id));
+
+  } catch (error) {
+    navigate('/error', {
+      replace: true,
+      state: { errormessage: error.message }
+    });
+  }
+  };  
     
     return(
     <Box sx={{ p: 2, minWidth: 300, }}>
@@ -55,7 +74,7 @@ function Decklista( ){
             decks.map((deck) => { 
             return (
             <Grid key={deck.deck_id}>
-            <Deck deck={deck}/>
+            <Deck deck={deck} handleDelete={handleDelete}/>
             </Grid>
                 );        
             })
