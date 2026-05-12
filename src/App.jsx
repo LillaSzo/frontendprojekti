@@ -158,7 +158,7 @@ function App() {
       <ThemeProvider theme={theme}>
       <CssBaseline />
 
-          <BrowserRouter>
+        <BrowserRouter>
           <Routes>
             <Route path='/' element={<MenuMUI />} >
               <Route index element={<Decklista />} />

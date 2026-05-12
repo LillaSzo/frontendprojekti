@@ -37,9 +37,14 @@ function Wordlomake({  }){
 
     let { id } = useParams();
     let deck_id = Number( id );
+
     const navigate = useNavigate();
+
     const [selectedDeck, setSelectedDeck] = useState(null);
- 
+    const [message, setMessage] = useState('');
+    const [errors, setErrors] = useState({ 
+    target_word: '', 
+    translation: '' });
 
     const[word, setValues] = useState({
     target_word: '',
@@ -51,10 +56,6 @@ function Wordlomake({  }){
     added: new Date()
     });
 
-    const [message, setMessage] = useState('');
-    const [errors, setErrors] = useState({ 
-    target_word: '', 
-    translation: '' });
 
     useEffect(() => {
     const fetchDeck = async () => {

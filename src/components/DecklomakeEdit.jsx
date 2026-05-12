@@ -28,57 +28,47 @@ function DecklomakeEdit({  }){
 
     let { deck_id } = useParams();
     let id = Number(deck_id);
+
     const navigate = useNavigate();
 
+    const [deck, setDeck] = useState(null);
     const [selectedDeck, setSelectedDeck] = useState(null);
-
-    const [deck, setValues] = useState({
-    deck_id: '',
-    name: '',
-    target_language: '',
-    translation_language: '',
-    });
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
     useEffect(() => {
     const fetchDeck = async () => {
-        const response = await getDeckById(id);
+      try {const response = await getDeckById(id);
 
-        if (response.status !== 200) {
+      if (response.status !== 200) {
         navigate('/error', {
-            replace: true,
-            state: { errormessage: 'Deck not found' }
+        replace: true,
+        state: { errormessage: 'Deck not found' }
         });
         return;
         }
+
+        setDeck(response.data);
         setSelectedDeck(response.data);
+
+      } catch (error) {
+        navigate('/error', {
+          replace: true,
+          state: { errormessage: error.message }
+        });
+      }
     };
-
     fetchDeck();
-    }, [id, navigate]);
-    
+  }, [id, navigate]);
 
-  useEffect(() => {
-    if (!selectedDeck) return;
-
-    setValues({
-      deck_id: selectedDeck.deck_id,
-      name: selectedDeck.name,
-      target_language: selectedDeck.target_language,
-      translation_language: selectedDeck.translation_language,
-    });
-
-  }, [selectedDeck]);
-
-
-    if (!selectedDeck) {
+  if (!deck) {
     return <Typography>Loading...</Typography>;
-    }
+  }
+
 
     const change = (e) => {
-    setValues({
+    setDeck({
         ...deck,
         [e.target.name]: e.target.value
         });
@@ -87,18 +77,11 @@ function DecklomakeEdit({  }){
     };
 
 
-    const undoChanges = () => {
-        setValues({
-        ...deck,
-        deck_id: id,
-        name: selectedDeck.name,
-        target_language: selectedDeck.target_language,
-        translation_language: selectedDeck.translation_language,
-        });
-    
+  const undoChanges = () => {
+    setDeck(selectedDeck);
     setError('');
     setMessage('');
-    };
+  };
 
 
 const changeDeck = async () => {
@@ -121,14 +104,13 @@ const changeDeck = async () => {
 
     setMessage('Deck updated successfully');
 
-  } catch (error) {
-    navigate('/error', {
-      replace: true,
-      state: { errormessage: error.message }
-    });
-  }
-};
-
+    } catch (error) {
+      navigate('/error', {
+        replace: true,
+        state: { errormessage: error.message }
+      });
+    }
+  };
 
 
     const getError = (name) => {
@@ -137,11 +119,6 @@ const changeDeck = async () => {
     return '';
     };
 
-    let pictureName = '';
-
-    if (deck.picture) {
-    pictureName = deck.picture.name;
-    }
 
     return (
     <Paper sx={{ p: 1, m: 2 }}>

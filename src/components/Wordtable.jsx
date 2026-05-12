@@ -95,9 +95,9 @@ function Wordtable(){
     valueFormatter: (value) =>value.toLocaleDateString('fi-FI')},
     {field: 'favourite', headerName: 'Favourite', flex: 1, sortable: false,
     renderCell: (params) => params.value ? (
-    <FavoriteIcon />) 
+    <IconButton><FavoriteIcon /></IconButton>) 
     : 
-    (<FavoriteBorderIcon />)},
+    (<IconButton><FavoriteBorderIcon /></IconButton>)},
     {field: 'delete', headerName: 'Delete', flex:1, sortable: false,
     renderCell: (params) => (
     <IconButton><ClearIcon onClick={() => handleDeleteWord(params.row.word_id)}/></IconButton>
