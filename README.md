@@ -22,7 +22,7 @@ Topics Covered:
 - SQLite database integration
 
 Features:
-- Create edit and delete word decks + create, delete words from decks
+- Create edit and delete decks + adding words to decks with deleting option
 - Study words with the help of DataGrid (search and filter)
 - Word difficulty visualization
 - Monthly word added tracking
