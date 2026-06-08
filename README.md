@@ -29,7 +29,7 @@ Features:
   
 Screenshots:
 Main:
-<img width="908" height="707" alt="main" src="https://github.com/user-attachments/assets/08d85369-4354-42a9-8e78-5a4d766cc6d0" />
+<img width="908" height="707" alt="main" src="https://github.com/user-attachments/assets/08d85369-4354-42a9-8e78-5a4d766cc6d0" /><br>
 Add word:
 <img width="1265" height="623" alt="addword" src="https://github.com/user-attachments/assets/956bde49-ce2f-4b3b-b7ea-43be2480d0b0" />
 DataGrid:
