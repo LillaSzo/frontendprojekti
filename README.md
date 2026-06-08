@@ -1,16 +1,43 @@
-# React + Vite
+WordApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+In this project, the goal was to create a React application for studying foreign languages using wordcards. Users can create their own word decks in different categories and practice vocabulary in a structured way.
 
-Currently, two official plugins are available:
+Main goal: understand the basics of React and connecting frontend with backend features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- JavaScript
+- React
+- Material UI
+- React Router
+- Node, Express
+- SQLite
 
-## React Compiler
+Topics Covered:
+- React basics (components, props, state)
+- React Hooks (useState, useEffect)
+- Form handling and different input types
+- Data visualization with PieChart and BarChart
+- DataGrid for structured view
+- Error handling
+- Backend API with Node.js and Express
+- SQLite database integration
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Features:
+- Create edit and delete word decks + create, delete words from decks
+- Study words with the help of DataGrid (search and filter)
+- Word difficulty visualization
+- Monthly word added tracking
+  
+Screenshots:
+Main:
+<img width="908" height="707" alt="main" src="https://github.com/user-attachments/assets/08d85369-4354-42a9-8e78-5a4d766cc6d0" />
+Add word:
+<img width="1265" height="623" alt="addword" src="https://github.com/user-attachments/assets/956bde49-ce2f-4b3b-b7ea-43be2480d0b0" />
+DataGrid:
+<img width="1263" height="699" alt="datagrid" src="https://github.com/user-attachments/assets/034d03cc-bea2-4167-98ad-3dd311e1851b" />
+Statistics:
+<img width="1215" height="678" alt="statistics" src="https://github.com/user-attachments/assets/ab84f9b2-37ab-4491-b212-3bbabd9690c2" />
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
